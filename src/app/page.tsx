@@ -53,7 +53,7 @@ export default function DashboardPage() {
           ))}
           {!isLoading && recentScans.length === 0 && (
             <li className="px-4 py-8 text-center text-sm text-slate-500">
-              No scans yet. Upload a document to get started.
+              No scans yet. Capture or upload a document to get started.
             </li>
           )}
         </ul>
