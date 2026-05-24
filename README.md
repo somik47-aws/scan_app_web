@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Scan App Web
 
-## Getting Started
+Web version of the document scanner mobile app. Scan uploads, AI analysis (OpenAI Vision), rich-text editing, PIN-locked documents, and **UPI-gated export/download**.
 
-First, run the development server:
+## Features
+
+- **Dashboard** — upload/capture images, view recent scans
+- **AI scan** — multilingual OCR and structured output (passport, invoice, receipt, etc.)
+- **Editor** — edit title and rich HTML body
+- **History** — search, PIN lock/unlock, export
+- **Export** — PDF, DOCX, HTML, TXT, MD, JSON, CSV, JPG, PNG
+- **UPI payment** — required before export/download (Razorpay or demo mock flow)
+
+## Setup
 
 ```bash
+cd scan_app_web
+cp .env.example .env.local
+# Add OPENAI_API_KEY (required for scanning)
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## UPI / payments
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Direct UPI (default)
 
-## Learn More
+Set in `.env.local`:
 
-To learn more about Next.js, take a look at the following resources:
+```env
+PAYMENT_MODE=direct_upi
+MERCHANT_UPI_VPA=your-id@upi
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Users pay via **QR scan** or **Open UPI app** — your UPI ID is **not shown** in the app (only on the server). After paying, they enter the **UTR / UPI reference** to unlock export for 30 minutes.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Important:** Do not leave placeholder Razorpay keys (`rzp_test_...`) in `.env.local` — that breaks payment init. Remove them or use real keys with `PAYMENT_MODE=razorpay`.
 
-## Deploy on Vercel
+### Razorpay (optional)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+For automatic payment verification, use [Razorpay](https://razorpay.com) with `PAYMENT_MODE=razorpay` and valid `NEXT_PUBLIC_RAZORPAY_KEY_ID` / `RAZORPAY_KEY_SECRET`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Price: `EXPORT_PRICE_PAISE` (default `1000` = ₹10).
+
+## Security notes
+
+- Keep `OPENAI_API_KEY` and `RAZORPAY_KEY_SECRET` on the server only (`.env.local`, never commit).
+- Rotate any API key that was shared in chat or logs.
+- Mock UPI must be disabled in production (`ALLOW_MOCK_UPI=false`).
+
+## Related project
+
+Mobile app: `../scan_app` (Expo React Native).
