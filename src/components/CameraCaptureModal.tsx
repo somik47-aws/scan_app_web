@@ -12,86 +12,94 @@ export function CameraCaptureModal({ open, onClose, onCapture }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [starting, setStarting] = useState(false);
+  const [ready, setReady] = useState(false);
   const [facingMode, setFacingMode] = useState<'environment' | 'user'>('environment');
 
-  const stopCamera = useCallback(() => {
-    streamRef.current?.getTracks().forEach((track) => track.stop());
+  const stopStream = useCallback(() => {
+    streamRef.current?.getTracks().forEach((t) => t.stop());
     streamRef.current = null;
     if (videoRef.current) {
       videoRef.current.srcObject = null;
     }
+    setReady(false);
   }, []);
-
-  const startCamera = useCallback(async () => {
-    setStarting(true);
-    setError(null);
-    stopCamera();
-
-    if (!navigator.mediaDevices?.getUserMedia) {
-      setError('Camera is not supported in this browser.');
-      setStarting(false);
-      return;
-    }
-
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: {
-          facingMode: { ideal: facingMode },
-          width: { ideal: 1920 },
-          height: { ideal: 1080 },
-        },
-        audio: false,
-      });
-      streamRef.current = stream;
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-        await videoRef.current.play();
-      }
-    } catch (err) {
-      const name = err instanceof Error ? err.name : '';
-      if (name === 'NotAllowedError' || name === 'PermissionDeniedError') {
-        setError('Camera permission denied. Allow camera access in browser settings and try again.');
-      } else if (name === 'NotFoundError') {
-        setError('No camera found on this device.');
-      } else {
-        setError(err instanceof Error ? err.message : 'Could not start camera.');
-      }
-    } finally {
-      setStarting(false);
-    }
-  }, [facingMode, stopCamera]);
 
   useEffect(() => {
     if (!open) {
-      stopCamera();
+      stopStream();
       setError(null);
       return;
     }
+
+    let cancelled = false;
+
+    const startCamera = async () => {
+      setError(null);
+      setReady(false);
+      stopStream();
+
+      if (!navigator.mediaDevices?.getUserMedia) {
+        setError('Camera is not supported in this browser.');
+        return;
+      }
+
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: {
+            facingMode: { ideal: facingMode },
+            width: { ideal: 1920 },
+            height: { ideal: 1080 },
+          },
+          audio: false,
+        });
+
+        if (cancelled) {
+          stream.getTracks().forEach((t) => t.stop());
+          return;
+        }
+
+        streamRef.current = stream;
+        const video = videoRef.current;
+        if (video) {
+          video.srcObject = stream;
+          await video.play();
+          setReady(true);
+        }
+      } catch (err) {
+        const msg =
+          err instanceof DOMException && err.name === 'NotAllowedError'
+            ? 'Camera permission denied. Allow camera access in browser settings.'
+            : err instanceof DOMException && err.name === 'NotFoundError'
+              ? 'No camera found on this device.'
+              : 'Could not start camera. Use HTTPS or localhost and allow camera access.';
+        setError(msg);
+      }
+    };
+
     void startCamera();
-    return () => stopCamera();
-  }, [open, facingMode, startCamera, stopCamera]);
+
+    return () => {
+      cancelled = true;
+      stopStream();
+    };
+  }, [open, facingMode, stopStream]);
 
   const handleCapture = () => {
     const video = videoRef.current;
-    if (!video || video.videoWidth === 0) return;
+    if (!video || !ready || video.videoWidth === 0) return;
 
     const canvas = document.createElement('canvas');
-    const maxWidth = 1600;
-    const scale = video.videoWidth > maxWidth ? maxWidth / video.videoWidth : 1;
-    canvas.width = Math.round(video.videoWidth * scale);
-    canvas.height = Math.round(video.videoHeight * scale);
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
-
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-    const dataUrl = canvas.toDataURL('image/jpeg', 0.88);
-    stopCamera();
-    onCapture(dataUrl);
+    ctx.drawImage(video, 0, 0);
+    onCapture(canvas.toDataURL('image/jpeg', 0.9));
+    stopStream();
     onClose();
   };
 
-  const toggleCamera = () => {
+  const switchCamera = () => {
     setFacingMode((prev) => (prev === 'environment' ? 'user' : 'environment'));
   };
 
@@ -104,41 +112,32 @@ export function CameraCaptureModal({ open, onClose, onCapture }: Props) {
         <button
           type="button"
           onClick={() => {
-            stopCamera();
+            stopStream();
             onClose();
           }}
-          className="rounded-lg px-3 py-1.5 text-sm hover:bg-white/10"
+          className="rounded-lg px-3 py-1 text-sm hover:bg-white/10"
         >
           Cancel
         </button>
       </div>
 
       <div className="relative flex flex-1 items-center justify-center overflow-hidden bg-black">
-        {starting && (
-          <p className="absolute z-10 text-sm text-white/80">Starting camera…</p>
+        <video
+          ref={videoRef}
+          playsInline
+          muted
+          autoPlay
+          className="max-h-full max-w-full object-contain"
+        />
+        {!ready && !error && (
+          <p className="absolute text-sm text-white/80">Starting camera…</p>
         )}
-        {error ? (
-          <div className="max-w-sm px-6 text-center">
-            <p className="text-sm text-red-300">{error}</p>
-            <button
-              type="button"
-              onClick={() => void startCamera()}
-              className="mt-4 rounded-lg bg-teal-600 px-4 py-2 text-sm text-white"
-            >
-              Retry
-            </button>
+        {error && (
+          <div className="absolute inset-x-4 rounded-xl bg-red-950/90 p-4 text-center text-sm text-red-100">
+            {error}
           </div>
-        ) : (
-          <video
-            ref={videoRef}
-            playsInline
-            muted
-            autoPlay
-            className="max-h-full max-w-full object-contain"
-          />
         )}
-
-        {!error && !starting && (
+        {ready && (
           <div
             className="pointer-events-none absolute inset-8 rounded-lg border-2 border-dashed border-white/40"
             aria-hidden
@@ -146,27 +145,25 @@ export function CameraCaptureModal({ open, onClose, onCapture }: Props) {
         )}
       </div>
 
-      {!error && (
-        <div className="flex items-center justify-center gap-6 bg-black/90 px-4 py-6 pb-8">
-          <button
-            type="button"
-            onClick={toggleCamera}
-            className="rounded-full border border-white/30 px-4 py-2 text-sm text-white hover:bg-white/10"
-          >
-            Flip
-          </button>
-          <button
-            type="button"
-            onClick={handleCapture}
-            disabled={starting}
-            className="flex h-16 w-16 items-center justify-center rounded-full bg-white ring-4 ring-white/30 disabled:opacity-50"
-            aria-label="Take photo"
-          >
-            <span className="block h-12 w-12 rounded-full bg-teal-600" />
-          </button>
-          <div className="w-[72px]" />
-        </div>
-      )}
+      <div className="flex items-center justify-center gap-4 border-t border-white/10 px-4 py-6">
+        <button
+          type="button"
+          onClick={switchCamera}
+          disabled={!ready}
+          className="rounded-full border border-white/30 px-4 py-2 text-sm text-white hover:bg-white/10 disabled:opacity-40"
+        >
+          Flip camera
+        </button>
+        <button
+          type="button"
+          onClick={handleCapture}
+          disabled={!ready}
+          className="flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-lg disabled:opacity-40"
+          aria-label="Take photo"
+        >
+          <span className="h-12 w-12 rounded-full border-4 border-teal-600" />
+        </button>
+      </div>
     </div>
   );
 }

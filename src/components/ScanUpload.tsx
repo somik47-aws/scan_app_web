@@ -27,23 +27,26 @@ export function ScanUpload() {
   const [busy, setBusy] = useState(false);
   const [cameraOpen, setCameraOpen] = useState(false);
 
-  const goToPreview = async (dataUrl: string) => {
+  const goToPreview = async (source: string | File) => {
     setBusy(true);
     try {
-      const resized = await resizeImageDataUrl(dataUrl);
-      setPendingScanImage(resized);
+      let dataUrl =
+        typeof source === 'string' ? source : await fileToDataUrl(source);
+      dataUrl = await resizeImageDataUrl(dataUrl);
+      setPendingScanImage(dataUrl);
       router.push('/scan-preview');
     } finally {
       setBusy(false);
     }
   };
 
-  const processUpload = async (file: File) => {
+  const handleUpload = (file: File | undefined) => {
+    if (!file) return;
     if (!file.type.startsWith('image/')) {
+      alert('Please choose an image file (JPEG, PNG, etc.).');
       return;
     }
-    const dataUrl = await fileToDataUrl(file);
-    await goToPreview(dataUrl);
+    void goToPreview(file);
   };
 
   return (
@@ -54,19 +57,18 @@ export function ScanUpload() {
         onCapture={(dataUrl) => void goToPreview(dataUrl)}
       />
 
-      <div className="flex flex-wrap gap-3">
-        <input
-          ref={uploadRef}
-          type="file"
-          accept="image/*"
-          className="hidden"
-          onChange={(e) => {
-            const f = e.target.files?.[0];
-            if (f) void processUpload(f);
-            e.target.value = '';
-          }}
-        />
+      <input
+        ref={uploadRef}
+        type="file"
+        accept="image/*"
+        className="hidden"
+        onChange={(e) => {
+          handleUpload(e.target.files?.[0]);
+          e.target.value = '';
+        }}
+      />
 
+      <div className="flex flex-wrap gap-3">
         <button
           type="button"
           disabled={busy}
@@ -75,19 +77,17 @@ export function ScanUpload() {
         >
           {busy ? 'Processing…' : 'Capture'}
         </button>
-
         <button
           type="button"
           disabled={busy}
           onClick={() => uploadRef.current?.click()}
-          className="rounded-xl border-2 border-white/80 bg-transparent px-5 py-3 text-sm font-semibold text-white hover:bg-white/10 disabled:opacity-50"
+          className="rounded-xl border-2 border-white/80 bg-teal-700/50 px-5 py-3 text-sm font-semibold text-white hover:bg-teal-700 disabled:opacity-50"
         >
           Upload
         </button>
       </div>
-
-      <p className="mt-3 text-xs text-teal-100/90">
-        Capture uses your device camera. Upload picks an image from your gallery or files.
+      <p className="mt-2 text-xs text-teal-100/90">
+        Capture uses your device camera. Upload picks a photo from your gallery or files.
       </p>
     </>
   );
