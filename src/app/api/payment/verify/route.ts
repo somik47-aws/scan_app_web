@@ -1,8 +1,9 @@
 import { createHmac } from 'crypto';
 import { NextRequest, NextResponse } from 'next/server';
 
-import { isRazorpayConfigured } from '@/lib/paymentConfig';
+import { getExportPriceInrPaise, isRazorpayConfigured } from '@/lib/paymentConfig';
 import { createExportToken, verifyExportToken } from '@/lib/exportToken';
+import { getRazorpayClient } from '@/lib/razorpayServer';
 
 function isDirectUpiOrder(orderId: string, mode?: string): boolean {
   return mode === 'direct_upi' || mode === 'mock' || orderId.startsWith('mock_order_');
@@ -17,7 +18,8 @@ export async function POST(request: NextRequest) {
     const body = (await request.json()) as {
       documentId?: string;
       orderId?: string;
-      mode?: 'razorpay' | 'direct_upi' | 'mock';
+      mode?: 'razorpay' | 'razorpay_auto' | 'direct_upi' | 'mock';
+      paymentId?: string;
       razorpay_payment_id?: string;
       razorpay_order_id?: string;
       razorpay_signature?: string;
@@ -48,6 +50,30 @@ export async function POST(request: NextRequest) {
         expiresAt,
         orderId: body.orderId,
         upiUtr: utr,
+      });
+    }
+
+    if (body.mode === 'razorpay_auto' && body.paymentId) {
+      if (!isRazorpayConfigured()) {
+        return NextResponse.json({ error: 'Razorpay is not configured' }, { status: 503 });
+      }
+      const razorpay = getRazorpayClient();
+      const payment = await razorpay.payments.fetch(body.paymentId);
+      if (payment.status !== 'captured') {
+        return NextResponse.json({ error: 'Payment not completed' }, { status: 400 });
+      }
+      if (payment.order_id && payment.order_id !== body.orderId) {
+        return NextResponse.json({ error: 'Order mismatch' }, { status: 400 });
+      }
+      if (Number(payment.amount) < getExportPriceInrPaise()) {
+        return NextResponse.json({ error: 'Invalid payment amount' }, { status: 400 });
+      }
+      const { token, expiresAt } = createExportToken(body.documentId, body.orderId);
+      return NextResponse.json({
+        verified: true,
+        token,
+        expiresAt,
+        orderId: body.orderId,
       });
     }
 

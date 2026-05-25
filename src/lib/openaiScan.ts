@@ -1,3 +1,4 @@
+import { requireOpenAiApiKey } from '@/lib/openaiKey';
 import type { LanguagePreference, ScanAnalysisResult } from '@/types/scanAnalysis';
 
 const OPENAI_API_URL = 'https://api.openai.com/v1/chat/completions';
@@ -63,10 +64,7 @@ export async function analyzeDocumentImage(
   base64DataUrl: string,
   languagePreference: LanguagePreference = 'auto'
 ): Promise<ScanAnalysisResult> {
-  const apiKey = process.env.OPENAI_API_KEY;
-  if (!apiKey) {
-    throw new Error('OpenAI API key missing. Set OPENAI_API_KEY in .env.local');
-  }
+  const apiKey = requireOpenAiApiKey();
 
   const match = base64DataUrl.match(/^data:([^;]+);base64,(.+)$/);
   const mimeType = match?.[1] ?? 'image/jpeg';

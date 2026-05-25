@@ -126,9 +126,25 @@ export function getAppBaseUrl(): string {
   return raw.replace(/\/$/, '');
 }
 
-export function getPaymentMode(): 'razorpay' | 'direct_upi' {
+export type PaymentFlowMode = 'razorpay_qr' | 'razorpay_checkout' | 'direct_upi';
+
+/** Razorpay UPI QR enables automatic payment detection after scan. */
+export function getPaymentFlowMode(): PaymentFlowMode {
   const forced = process.env.PAYMENT_MODE?.trim();
-  if (forced === 'razorpay' && isRazorpayConfigured()) return 'razorpay';
-  if (forced === 'direct_upi') return 'direct_upi';
-  return isRazorpayConfigured() ? 'razorpay' : 'direct_upi';
+  if (isRazorpayConfigured()) {
+    if (forced === 'razorpay_checkout') return 'razorpay_checkout';
+    if (forced === 'direct_upi' && process.env.FORCE_DIRECT_UPI === 'true') {
+      return 'direct_upi';
+    }
+    return 'razorpay_qr';
+  }
+  return 'direct_upi';
+}
+
+/** @deprecated Use getPaymentFlowMode */
+export function getPaymentMode(): 'razorpay' | 'direct_upi' {
+  const flow = getPaymentFlowMode();
+  if (flow === 'razorpay_checkout') return 'razorpay';
+  if (flow === 'razorpay_qr') return 'razorpay';
+  return 'direct_upi';
 }

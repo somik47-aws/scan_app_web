@@ -23,6 +23,8 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
+**Production:** See [DEPLOY.md](./DEPLOY.md) — set `OPENAI_API_KEY` on your host (Vercel, etc.), not only in `.env.local`.
+
 ## UPI / payments
 
 ### Direct UPI (default)
