@@ -1,0 +1,15 @@
+# Firebase App Hosting — https://firebase.google.com/docs/app-hosting/configure
+# OPENAI_API_KEY & PAYMENT_TOKEN_SECRET: set in Firebase console (Hosting → Environment variables).
+# Do NOT use secret: references here unless you also run firebase apphosting:secrets:set.
+
+runConfig:
+  minInstances: 0
+  maxInstances: 10
+  concurrency: 80
+
+env:
+  - variable: NEXT_PUBLIC_APP_URL
+    value: https://scan.tinyhands.co.in
+    availability:
+      - BUILD
+      - RUNTIME

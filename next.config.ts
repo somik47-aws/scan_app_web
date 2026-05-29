@@ -1,7 +1,8 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Helps Firebase / container hosting run the Node server correctly
+  output: 'standalone',
 };
 
 export default nextConfig;
