@@ -1,5 +1,7 @@
 import { createHmac, randomBytes } from 'crypto';
 
+import { getRuntimeEnv } from '@/lib/runtimeEnv';
+
 const TOKEN_TTL_MS = 30 * 60 * 1000;
 
 /** @deprecated Use getExportPriceInrPaise from paymentConfig */
@@ -11,7 +13,7 @@ export function createExportToken(documentId: string, orderId: string): {
   token: string;
   expiresAt: number;
 } {
-  const secret = process.env.PAYMENT_TOKEN_SECRET ?? 'dev-secret-change-me';
+  const secret = getRuntimeEnv('PAYMENT_TOKEN_SECRET') ?? 'dev-secret-change-me';
   const expiresAt = Date.now() + TOKEN_TTL_MS;
   const payload = `${documentId}:${orderId}:${expiresAt}`;
   const sig = createHmac('sha256', secret).update(payload).digest('hex');
@@ -25,7 +27,7 @@ export function verifyExportToken(
   orderId: string
 ): boolean {
   try {
-    const secret = process.env.PAYMENT_TOKEN_SECRET ?? 'dev-secret-change-me';
+    const secret = getRuntimeEnv('PAYMENT_TOKEN_SECRET') ?? 'dev-secret-change-me';
     const decoded = Buffer.from(token, 'base64url').toString('utf8');
     const parts = decoded.split(':');
     if (parts.length < 4) return false;

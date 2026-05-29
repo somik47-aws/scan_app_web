@@ -6,6 +6,7 @@ import {
   getPaymentFlowMode,
   MERCHANT_UPI_PAYEE_NAME,
 } from '@/lib/paymentConfig';
+import { getRuntimeEnv } from '@/lib/runtimeEnv';
 import { createMockOrderId } from '@/lib/exportToken';
 import { getRazorpayClient } from '@/lib/razorpayServer';
 import { createUpiPaymentToken } from '@/lib/upiPaymentToken';
@@ -22,7 +23,7 @@ export async function POST(request: NextRequest) {
 
     if (flow === 'razorpay_qr') {
       const razorpay = getRazorpayClient();
-      const keyId = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!.trim();
+      const keyId = getRuntimeEnv('NEXT_PUBLIC_RAZORPAY_KEY_ID')!;
 
       const order = await razorpay.orders.create({
         amount,
@@ -61,7 +62,7 @@ export async function POST(request: NextRequest) {
 
     if (flow === 'razorpay_checkout') {
       const razorpay = getRazorpayClient();
-      const keyId = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!.trim();
+      const keyId = getRuntimeEnv('NEXT_PUBLIC_RAZORPAY_KEY_ID')!;
       const order = await razorpay.orders.create({
         amount,
         currency: 'INR',

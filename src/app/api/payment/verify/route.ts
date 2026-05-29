@@ -2,6 +2,7 @@ import { createHmac } from 'crypto';
 import { NextRequest, NextResponse } from 'next/server';
 
 import { getExportPriceInrPaise, isRazorpayConfigured } from '@/lib/paymentConfig';
+import { getRuntimeEnv } from '@/lib/runtimeEnv';
 import { createExportToken, verifyExportToken } from '@/lib/exportToken';
 import { getRazorpayClient } from '@/lib/razorpayServer';
 
@@ -81,7 +82,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Razorpay is not configured' }, { status: 503 });
     }
 
-    const secret = process.env.RAZORPAY_KEY_SECRET!.trim();
+    const secret = getRuntimeEnv('RAZORPAY_KEY_SECRET')!;
     if (!body.razorpay_payment_id || !body.razorpay_order_id || !body.razorpay_signature) {
       return NextResponse.json({ error: 'Invalid payment verification payload' }, { status: 400 });
     }

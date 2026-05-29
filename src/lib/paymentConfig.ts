@@ -1,14 +1,16 @@
+import { getRuntimeEnv } from '@/lib/runtimeEnv';
+
 export type PaymentMethodId = 'direct_upi' | 'razorpay' | 'stripe';
 
 export const MERCHANT_UPI_VPA =
-  process.env.MERCHANT_UPI_VPA?.trim() || '9481657016@upi';
+  getRuntimeEnv('MERCHANT_UPI_VPA') || '9481657016@upi';
 
 export const MERCHANT_UPI_PAYEE_NAME =
-  process.env.MERCHANT_UPI_PAYEE_NAME?.trim() || 'Scan App';
+  getRuntimeEnv('MERCHANT_UPI_PAYEE_NAME') || 'Scan App';
 
 /** ₹10 default */
 export function getExportPriceInrPaise(): number {
-  return Number(process.env.EXPORT_PRICE_PAISE ?? 1000);
+  return Number(getRuntimeEnv('EXPORT_PRICE_PAISE') ?? 1000);
 }
 
 /** ~₹10 equivalent for international (Stripe) */
@@ -25,8 +27,8 @@ export function formatUsd(cents: number): string {
 }
 
 export function isRazorpayConfigured(): boolean {
-  const keyId = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID?.trim();
-  const secret = process.env.RAZORPAY_KEY_SECRET?.trim();
+  const keyId = getRuntimeEnv('NEXT_PUBLIC_RAZORPAY_KEY_ID');
+  const secret = getRuntimeEnv('RAZORPAY_KEY_SECRET');
   if (!keyId || !secret) return false;
   if (keyId.includes('...') || secret.includes('...')) return false;
   if (!keyId.startsWith('rzp_')) return false;
@@ -35,8 +37,8 @@ export function isRazorpayConfigured(): boolean {
 }
 
 export function isStripeConfigured(): boolean {
-  const secret = process.env.STRIPE_SECRET_KEY?.trim();
-  const publishable = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY?.trim();
+  const secret = getRuntimeEnv('STRIPE_SECRET_KEY');
+  const publishable = getRuntimeEnv('NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY');
   if (!secret || !publishable) return false;
   if (secret.includes('...') || publishable.includes('...')) return false;
   if (!secret.startsWith('sk_') && !secret.startsWith('rk_')) return false;
@@ -120,7 +122,7 @@ export function buildUpiQrImageUrl(upiPayUrl: string, size = 220): string {
 
 export function getAppBaseUrl(): string {
   const raw =
-    process.env.NEXT_PUBLIC_APP_URL?.trim() ||
+    getRuntimeEnv('NEXT_PUBLIC_APP_URL') ||
     (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '') ||
     'http://localhost:3000';
   return raw.replace(/\/$/, '');
@@ -130,10 +132,10 @@ export type PaymentFlowMode = 'razorpay_qr' | 'razorpay_checkout' | 'direct_upi'
 
 /** Razorpay UPI QR enables automatic payment detection after scan. */
 export function getPaymentFlowMode(): PaymentFlowMode {
-  const forced = process.env.PAYMENT_MODE?.trim();
+  const forced = getRuntimeEnv('PAYMENT_MODE');
   if (isRazorpayConfigured()) {
     if (forced === 'razorpay_checkout') return 'razorpay_checkout';
-    if (forced === 'direct_upi' && process.env.FORCE_DIRECT_UPI === 'true') {
+    if (forced === 'direct_upi' && getRuntimeEnv('FORCE_DIRECT_UPI') === 'true') {
       return 'direct_upi';
     }
     return 'razorpay_qr';

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/ensure-build-env.mjs && next build",
+    "build": "node scripts/bake-env.mjs && next build && node scripts/copy-baked-env.mjs",
     "start": "next start",
     "lint": "eslint"
   },

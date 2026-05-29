@@ -1,15 +1,11 @@
-/** Server-side OpenAI key — set in Firebase Hosting → Environment variables, then redeploy */
-export function getOpenAiApiKey(): string | undefined {
-  const sources = [
-    process.env.OPENAI_API_KEY,
-    process.env.OPENAI_KEY,
-  ];
+import { getRuntimeEnv } from '@/lib/runtimeEnv';
 
-  for (const raw of sources) {
-    const key = raw?.trim().replace(/^['"]|['"]$/g, '');
+/** Server-side OpenAI key */
+export function getOpenAiApiKey(): string | undefined {
+  const sources = [getRuntimeEnv('OPENAI_API_KEY'), getRuntimeEnv('OPENAI_KEY')];
+  for (const key of sources) {
     if (key?.startsWith('sk-')) return key;
   }
-
   return undefined;
 }
 
@@ -22,9 +18,8 @@ export function requireOpenAiApiKey(): string {
   if (!key) {
     throw new Error(
       'OpenAI API key is not available on the server. ' +
-        'Firebase: save OPENAI_API_KEY under Hosting → Environment variables, ' +
-        'then create a NEW rollout (see HOSTING_FIX.md). ' +
-        'Check: /api/config-check'
+        'Set OPENAI_API_KEY in Firebase Environment variables and create a new rollout. ' +
+        'Check /api/config-check'
     );
   }
   return key;

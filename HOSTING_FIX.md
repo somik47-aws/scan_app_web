@@ -1,55 +1,47 @@
-# Fix: OpenAI key set in Firebase but scan still fails
+# Fix: config-check shows openaiConfigured false
 
-Your screenshot shows variables are set correctly in **Firebase App Hosting → Environment variables**. The app still fails because:
+Your `/api/config-check` showed:
 
-1. **A new rollout is required** — saving variables does not update the live site until you deploy again.
-2. **The build must see the key** — `npm run build` now checks for `OPENAI_API_KEY` and fails if it is missing during build.
+```json
+"knownEnvKeys": [],
+"openaiEnvVarVisible": false
+```
 
-## Do this now (Firebase console)
+That means **Firebase is not passing console env vars to the running server** (Cloud Run). This is a known App Hosting quirk.
 
-1. Confirm these three variables exist for **All branches** (you already have them):
+## Fix (implemented in code)
 
-   | Variable | Value |
-   |----------|--------|
-   | `OPENAI_API_KEY` | full `sk-proj-...` key (no quotes, no spaces) |
-   | `PAYMENT_TOKEN_SECRET` | any long random string |
-   | `NEXT_PUBLIC_APP_URL` | `https://scan.tinyhands.co.in` |
+During **build**, Firebase *does* have your env vars. The build now:
 
-2. **Push latest code** to GitHub (includes `apphosting.yaml`, build check, `/api/config-check`).
+1. Writes `env.baked.json` from `OPENAI_API_KEY`, `PAYMENT_TOKEN_SECRET`, etc.
+2. Copies it into the standalone server bundle
+3. At **runtime**, the app reads `env.baked.json` if `process.env` is empty
 
-3. **Create a new rollout**:
-   - Firebase console → **App Hosting** → your backend → **Rollouts**
-   - Click **Create rollout** (or **Redeploy** latest commit)
+## What you must do
 
-4. Wait for build to finish. If build fails with `OPENAI_API_KEY is missing during build`, the variable is not visible to the build — re-save it in Environment variables and retry.
+1. **Push latest code** to GitHub (includes this fix).
+2. Confirm **Environment variables** in Firebase still has `OPENAI_API_KEY` (All branches).
+3. **Create a new rollout** in Firebase App Hosting.
+4. Wait for build — it will **fail** if `OPENAI_API_KEY` is missing at build time (good).
+5. Open: https://scan.tinyhands.co.in/api/config-check
 
-5. Verify:
+Expected after deploy:
 
-   ```
-   https://scan.tinyhands.co.in/api/config-check
-   ```
+```json
+{
+  "openaiConfigured": true,
+  "bakedEnvAvailable": true,
+  "knownEnvKeys": ["OPENAI_API_KEY", "PAYMENT_TOKEN_SECRET", "NEXT_PUBLIC_APP_URL"],
+  "hint": "OpenAI is configured correctly."
+}
+```
 
-   Expected:
+6. Test **Analyze document** on `/scan-preview`.
 
-   ```json
-   { "openaiConfigured": true, "openaiEnvVarVisible": true }
-   ```
+## If build fails on Firebase
 
-6. Test scan on `/scan-preview` → **Analyze document**.
-
-## Check which rollout is live
-
-In Firebase → Rollouts → open the **live** rollout → scroll to **Environment variables in this build**. Confirm `OPENAI_API_KEY` is listed.
-
-## Common mistakes
-
-| Problem | Fix |
-|---------|-----|
-| Vars added after last deploy | New rollout |
-| Key truncated when pasted | Re-paste full key |
-| Extra `"` quotes around value | Store raw key only |
-| Old code still live | Push + rollout latest commit |
+Build log will say `OPENAI_API_KEY missing during build`. Re-save the key in Environment variables (full `sk-proj-...`, no quotes) and rollout again.
 
 ## Reference
 
-[Firebase App Hosting — environment variables](https://firebase.google.com/docs/app-hosting/configure)
+[Firebase App Hosting environment variables](https://firebase.google.com/docs/app-hosting/configure)

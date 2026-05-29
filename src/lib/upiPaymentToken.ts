@@ -1,9 +1,11 @@
 import { createHmac } from 'crypto';
 
+import { getRuntimeEnv } from '@/lib/runtimeEnv';
+
 const TTL_MS = 15 * 60 * 1000;
 
 function getSecret(): string {
-  return process.env.PAYMENT_TOKEN_SECRET ?? 'dev-secret-change-me';
+  return getRuntimeEnv('PAYMENT_TOKEN_SECRET') ?? 'dev-secret-change-me';
 }
 
 export type UpiPaymentTokenPayload = {
