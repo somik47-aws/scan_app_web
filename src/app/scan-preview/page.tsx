@@ -85,30 +85,58 @@ export default function ScanPreviewPage() {
   if (!image) {
     return (
       <AppShell>
-        <p className="text-slate-500">Loading…</p>
+        <div className="flex items-center gap-3 text-slate-500">
+          <span className="h-4 w-4 animate-spin rounded-full border-2 border-cyan-500 border-t-transparent" />
+          Loading scan…
+        </div>
       </AppShell>
     );
   }
 
   return (
     <AppShell>
-      <Link href="/" className="text-sm text-teal-700 hover:underline">
+      <Link
+        href="/"
+        className="inline-flex items-center gap-1 text-sm font-medium text-slate-500 transition-colors hover:text-cyan-700"
+      >
         ← Back
       </Link>
-      <h1 className="mt-2 text-2xl font-bold">Scan preview</h1>
 
-      <div className="mt-4 grid gap-6 lg:grid-cols-2">
-        <div className="overflow-hidden rounded-xl border border-slate-200 bg-white">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={image} alt="Scan" className="max-h-96 w-full object-contain" />
+      <div className="mt-4 animate-fade-up">
+        <p className="section-label mb-1">Preview</p>
+        <h1 className="text-3xl font-semibold tracking-tight text-slate-900">
+          Scan analysis
+        </h1>
+      </div>
+
+      <div className="mt-8 grid gap-8 lg:grid-cols-2">
+        {/* Image with scan overlay */}
+        <div className="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm">
+          <div className="absolute left-4 top-4 z-10 rounded-full bg-slate-900/80 px-3 py-1 font-mono text-[10px] font-medium uppercase tracking-wider text-cyan-300 backdrop-blur-sm">
+            Source
+          </div>
+          <div className="relative">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={image} alt="Scan" className="max-h-[480px] w-full object-contain p-4" />
+            {loading && (
+              <>
+                <div className="pointer-events-none absolute inset-x-8 h-px animate-scan-sweep bg-gradient-to-r from-transparent via-cyan-400 to-transparent shadow-[0_0_16px_2px_rgba(34,211,238,0.5)]" />
+                <div className="absolute inset-0 flex items-center justify-center bg-white/40 backdrop-blur-[2px]">
+                  <span className="rounded-full bg-slate-900 px-4 py-2 font-mono text-xs text-white">
+                    Scanning…
+                  </span>
+                </div>
+              </>
+            )}
+          </div>
         </div>
 
-        <div>
-          <label className="text-sm font-medium text-slate-700">Language</label>
+        <div className="animate-fade-up-delay-1">
+          <label className="section-label mb-2 block">Language</label>
           <select
             value={language}
             onChange={(e) => setLanguage(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm"
+            className="input-field"
           >
             <option value="auto">Auto-detect</option>
             <option value="en">English</option>
@@ -124,31 +152,29 @@ export default function ScanPreviewPage() {
             type="button"
             onClick={() => void runAnalysis()}
             disabled={loading}
-            className="mt-4 w-full rounded-xl bg-teal-600 py-3 text-sm font-semibold text-white hover:bg-teal-700 disabled:opacity-50"
+            className="btn-primary mt-5 w-full"
           >
-            {loading ? 'Analyzing with AI…' : 'Analyze document'}
+            {loading ? 'Analyzing with AI…' : 'Run AI analysis'}
           </button>
 
           {error && (
-            <p className="mt-3 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p>
+            <p className="mt-4 rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-700">
+              {error}
+            </p>
           )}
 
           {analysis && (
-            <div className="mt-6 space-y-4">
+            <div className="mt-8 space-y-6">
               <FormattedScanOutput analysis={analysis} />
-              <div className="flex flex-wrap gap-2">
-                <button
-                  type="button"
-                  onClick={openEditor}
-                  className="rounded-lg border border-teal-200 px-4 py-2 text-sm font-medium text-teal-800"
-                >
-                  Edit document
+              <div className="flex flex-wrap gap-3">
+                <button type="button" onClick={openEditor} className="btn-secondary">
+                  Edit
                 </button>
                 <button
                   type="button"
                   onClick={() => void saveDocument()}
                   disabled={saving}
-                  className="rounded-lg bg-teal-600 px-4 py-2 text-sm font-medium text-white disabled:opacity-50"
+                  className="btn-primary"
                 >
                   {saving ? 'Saving…' : 'Save to library'}
                 </button>

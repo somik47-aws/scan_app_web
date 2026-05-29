@@ -106,16 +106,21 @@ export function CameraCaptureModal({ open, onClose, onCapture }: Props) {
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col bg-black">
-      <div className="flex items-center justify-between px-4 py-3 text-white">
-        <h2 className="text-lg font-semibold">Capture document</h2>
+    <div className="fixed inset-0 z-50 flex flex-col bg-slate-950">
+      <div className="flex items-center justify-between px-5 py-4 text-white">
+        <div>
+          <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-cyan-400/80">
+            Capture
+          </p>
+          <h2 className="text-lg font-semibold tracking-tight">Scan document</h2>
+        </div>
         <button
           type="button"
           onClick={() => {
             stopStream();
             onClose();
           }}
-          className="rounded-lg px-3 py-1 text-sm hover:bg-white/10"
+          className="rounded-full border border-white/20 px-4 py-1.5 text-sm hover:bg-white/10"
         >
           Cancel
         </button>
@@ -130,38 +135,44 @@ export function CameraCaptureModal({ open, onClose, onCapture }: Props) {
           className="max-h-full max-w-full object-contain"
         />
         {!ready && !error && (
-          <p className="absolute text-sm text-white/80">Starting camera…</p>
+          <p className="absolute text-sm text-white/70">Starting camera…</p>
         )}
         {error && (
-          <div className="absolute inset-x-4 rounded-xl bg-red-950/90 p-4 text-center text-sm text-red-100">
+          <div className="absolute inset-x-4 rounded-2xl border border-red-500/30 bg-red-950/90 p-4 text-center text-sm text-red-100">
             {error}
           </div>
         )}
         {ready && (
-          <div
-            className="pointer-events-none absolute inset-8 rounded-lg border-2 border-dashed border-white/40"
-            aria-hidden
-          />
+          <>
+            <div
+              className="pointer-events-none absolute inset-10 rounded-xl border border-cyan-400/50 shadow-[0_0_0_9999px_rgba(0,0,0,0.45)]"
+              aria-hidden
+            />
+            <div className="pointer-events-none absolute inset-10 overflow-hidden rounded-xl" aria-hidden>
+              <div className="animate-scan-sweep pointer-events-none absolute inset-x-0 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-80" />
+            </div>
+            <div className="pointer-events-none absolute inset-10 rounded-xl border-2 border-dashed border-white/20" aria-hidden />
+          </>
         )}
       </div>
 
-      <div className="flex items-center justify-center gap-4 border-t border-white/10 px-4 py-6">
+      <div className="flex items-center justify-center gap-6 border-t border-white/10 px-4 py-8">
         <button
           type="button"
           onClick={switchCamera}
           disabled={!ready}
-          className="rounded-full border border-white/30 px-4 py-2 text-sm text-white hover:bg-white/10 disabled:opacity-40"
+          className="rounded-full border border-white/25 px-5 py-2.5 text-sm text-white/90 hover:bg-white/10 disabled:opacity-40"
         >
-          Flip camera
+          Flip
         </button>
         <button
           type="button"
           onClick={handleCapture}
           disabled={!ready}
-          className="flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-lg disabled:opacity-40"
+          className="group relative flex h-[72px] w-[72px] items-center justify-center rounded-full bg-white/95 shadow-[0_0_40px_rgba(34,211,238,0.35)] disabled:opacity-40"
           aria-label="Take photo"
         >
-          <span className="h-12 w-12 rounded-full border-4 border-teal-600" />
+          <span className="h-14 w-14 rounded-full border-[3px] border-slate-900 transition group-hover:scale-95" />
         </button>
       </div>
     </div>

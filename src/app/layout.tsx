@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Scan App — Document Scanner',
-  description: 'AI document scanner with UPI-secured export',
+  title: 'Scan — AI Document Scanner',
+  description: 'Minimal AI-powered document scanner. Capture, analyze, and export with precision.',
 };
 
 export default function RootLayout({
@@ -26,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full`}>
-      <body className="min-h-full antialiased font-sans text-slate-900">
+      <body className="min-h-full antialiased">
         <Providers>{children}</Providers>
       </body>
     </html>

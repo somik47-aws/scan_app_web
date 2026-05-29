@@ -24,9 +24,9 @@ export default function DocumentDetailPage() {
   if (!doc) {
     return (
       <AppShell>
-        <p>Document not found.</p>
-        <Link href="/history" className="text-teal-700">
-          Back to history
+        <p className="text-slate-500">Document not found.</p>
+        <Link href="/history" className="mt-2 inline-block text-sm text-cyan-700">
+          ← Library
         </Link>
       </AppShell>
     );
@@ -37,15 +37,13 @@ export default function DocumentDetailPage() {
   if (locked) {
     return (
       <AppShell>
-        <div className="mx-auto max-w-md rounded-2xl border border-amber-200 bg-amber-50 p-8 text-center">
-          <p className="text-4xl">🔒</p>
-          <h1 className="mt-2 text-xl font-semibold">{doc.title}</h1>
-          <p className="mt-2 text-sm text-amber-900">This document is PIN-protected.</p>
-          <button
-            type="button"
-            onClick={() => setUnlockOpen(true)}
-            className="mt-4 rounded-lg bg-teal-600 px-6 py-2 text-white"
-          >
+        <div className="mx-auto max-w-md animate-fade-up glass-card p-10 text-center">
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-50 text-2xl">
+            🔒
+          </div>
+          <h1 className="mt-4 text-xl font-semibold tracking-tight">{doc.title}</h1>
+          <p className="mt-2 text-sm text-slate-500">PIN-protected document</p>
+          <button type="button" onClick={() => setUnlockOpen(true)} className="btn-primary mt-6">
             Unlock
           </button>
         </div>
@@ -65,44 +63,42 @@ export default function DocumentDetailPage() {
 
   return (
     <AppShell>
-      <Link href="/history" className="text-sm text-teal-700 hover:underline">
-        ← History
+      <Link
+        href="/history"
+        className="inline-flex text-sm font-medium text-slate-500 hover:text-cyan-700"
+      >
+        ← Library
       </Link>
-      <div className="mt-2 flex flex-wrap items-start justify-between gap-3">
+
+      <div className="mt-4 flex flex-wrap items-start justify-between gap-4 animate-fade-up">
         <div>
-          <h1 className="text-2xl font-bold">{doc.title}</h1>
-          <p className="text-sm text-slate-500">{doc.date}</p>
+          <p className="section-label mb-1">Document</p>
+          <h1 className="text-3xl font-semibold tracking-tight text-slate-900">{doc.title}</h1>
+          <p className="mt-1 font-mono text-xs text-slate-400">{doc.date}</p>
         </div>
         <div className="flex gap-2">
-          <Link
-            href={`/editor?id=${doc.id}`}
-            className="rounded-lg border border-slate-200 px-4 py-2 text-sm font-medium"
-          >
+          <Link href={`/editor?id=${doc.id}`} className="btn-secondary">
             Edit
           </Link>
-          <button
-            type="button"
-            onClick={() => setExportOpen(true)}
-            className="rounded-lg bg-teal-600 px-4 py-2 text-sm font-medium text-white"
-          >
-            Export / Download
+          <button type="button" onClick={() => setExportOpen(true)} className="btn-primary">
+            Export
           </button>
         </div>
       </div>
 
       {doc.uri && (
-        <div className="mt-6 overflow-hidden rounded-xl border border-slate-200">
+        <div className="mt-8 overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={doc.uri} alt="" className="max-h-80 w-full object-contain bg-slate-100" />
+          <img src={doc.uri} alt="" className="max-h-96 w-full object-contain bg-slate-50 p-4" />
         </div>
       )}
 
       {doc.scanAnalysis ? (
-        <div className="mt-6">
+        <div className="mt-8">
           <FormattedScanOutput analysis={doc.scanAnalysis} />
         </div>
       ) : (
-        <p className="mt-6 text-slate-500">No AI analysis on this document.</p>
+        <p className="mt-8 text-sm text-slate-500">No AI analysis on this document.</p>
       )}
 
       <ExportFormatModal open={exportOpen} document={doc} onClose={() => setExportOpen(false)} />

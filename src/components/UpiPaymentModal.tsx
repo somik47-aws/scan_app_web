@@ -218,12 +218,14 @@ export function UpiPaymentModal({
 
   if (paidSuccess) {
     return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-        <div className="w-full max-w-md rounded-2xl bg-white p-8 text-center shadow-xl">
-          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-teal-100 text-3xl text-teal-700">
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 p-4 backdrop-blur-sm">
+        <div className="w-full max-w-md animate-fade-up rounded-2xl border border-slate-200/80 bg-white p-8 text-center shadow-2xl">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-cyan-50 text-3xl text-cyan-600">
             ✓
           </div>
-          <h2 className="mt-4 text-xl font-semibold text-slate-900">Payment successful</h2>
+          <h2 className="mt-4 text-xl font-semibold tracking-tight text-slate-900">
+            Payment successful
+          </h2>
           <p className="mt-2 text-sm text-slate-600">Your download is starting…</p>
         </div>
       </div>
@@ -236,9 +238,10 @@ export function UpiPaymentModal({
         src="https://checkout.razorpay.com/v1/checkout.js"
         onLoad={() => setScriptReady(true)}
       />
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-        <div className="max-h-[90vh] w-full max-w-md overflow-y-auto rounded-2xl bg-white p-6 shadow-xl">
-          <h2 className="text-lg font-semibold text-slate-900">Pay to export</h2>
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 p-4 backdrop-blur-sm">
+        <div className="max-h-[90vh] w-full max-w-md overflow-y-auto animate-fade-up rounded-2xl border border-slate-200/80 bg-white p-6 shadow-2xl">
+          <p className="section-label mb-1">Export unlock</p>
+          <h2 className="text-lg font-semibold tracking-tight text-slate-900">Pay to export</h2>
           <p className="mt-1 text-sm text-slate-600">{documentTitle}</p>
 
           {loading && !order && (
@@ -247,19 +250,19 @@ export function UpiPaymentModal({
 
           {order && (
             <>
-              <div className="mt-4 rounded-xl bg-teal-50 p-4 text-center">
-                <p className="text-xs font-medium uppercase tracking-wide text-teal-700">
-                  Amount to pay
+              <div className="mt-4 rounded-2xl border border-cyan-200/60 bg-gradient-to-b from-cyan-50 to-white p-5 text-center">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-cyan-700">
+                  Amount
                 </p>
-                <p className="text-3xl font-bold text-teal-900">₹{amountInr}</p>
+                <p className="text-4xl font-semibold tracking-tight text-slate-900">₹{amountInr}</p>
               </div>
 
               {(order.mode === 'direct_upi' || order.mode === 'razorpay_qr') && order.qrCodeUrl && (
                 <div className="mt-4 space-y-4">
                   {order.mode === 'razorpay_qr' && (
-                    <p className="rounded-lg bg-teal-50 px-3 py-2 text-sm text-teal-900">
+                    <p className="rounded-xl border border-cyan-200/60 bg-cyan-50/80 px-3 py-2.5 text-sm text-cyan-900">
                       {polling
-                        ? 'Waiting for payment… Download unlocks automatically after UPI payment.'
+                        ? 'Waiting for payment… Download unlocks automatically.'
                         : 'Scan the QR and pay with any UPI app.'}
                     </p>
                   )}
@@ -271,8 +274,8 @@ export function UpiPaymentModal({
                     </p>
                   )}
 
-                  <div className="flex flex-col items-center rounded-xl border border-slate-200 p-4">
-                    <p className="mb-2 text-sm font-medium text-slate-700">Scan to pay</p>
+                  <div className="flex flex-col items-center rounded-2xl border border-slate-200/80 bg-slate-50/50 p-5">
+                    <p className="mb-3 text-sm font-medium text-slate-700">Scan to pay</p>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={order.qrCodeUrl}
@@ -282,18 +285,15 @@ export function UpiPaymentModal({
                       className="rounded-lg"
                     />
                     {polling && (
-                      <p className="mt-3 flex items-center gap-2 text-sm text-teal-700">
-                        <span className="inline-block h-2 w-2 animate-pulse rounded-full bg-teal-600" />
+                      <p className="mt-3 flex items-center gap-2 text-sm text-cyan-700">
+                        <span className="inline-block h-2 w-2 animate-pulse rounded-full bg-cyan-500" />
                         Checking payment status…
                       </p>
                     )}
                   </div>
 
                   {order.upiOpenUrl && order.mode === 'direct_upi' && (
-                    <a
-                      href={order.upiOpenUrl}
-                      className="flex w-full justify-center rounded-lg bg-teal-600 py-2.5 text-sm font-medium text-white hover:bg-teal-700"
-                    >
+                    <a href={order.upiOpenUrl} className="btn-primary flex w-full justify-center">
                       Open UPI app
                     </a>
                   )}
@@ -307,7 +307,7 @@ export function UpiPaymentModal({
                       <button
                         type="button"
                         onClick={() => setShowManualUtr((v) => !v)}
-                        className="text-sm text-teal-700 underline"
+                        className="text-sm font-medium text-cyan-700 hover:text-cyan-800"
                       >
                         {showManualUtr ? 'Hide manual confirmation' : 'Paid? Enter UTR manually'}
                       </button>
@@ -316,7 +316,7 @@ export function UpiPaymentModal({
                           <label className="block">
                             <span className="text-sm font-medium text-slate-700">UTR / reference</span>
                             <input
-                              className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm"
+                              className="input-field mt-1 text-sm"
                               placeholder="From UPI receipt"
                               value={utr}
                               onChange={(e) => setUtr(e.target.value)}
@@ -327,7 +327,7 @@ export function UpiPaymentModal({
                             type="button"
                             onClick={() => void confirmDirectUpi()}
                             disabled={loading || utr.replace(/\s/g, '').length < 8}
-                            className="w-full rounded-lg border border-teal-600 py-2.5 text-sm font-medium text-teal-800 hover:bg-teal-50 disabled:opacity-50"
+                            className="btn-secondary w-full"
                           >
                             Confirm payment
                           </button>
@@ -343,7 +343,7 @@ export function UpiPaymentModal({
                   type="button"
                   onClick={openRazorpay}
                   disabled={!scriptReady || loading}
-                  className="mt-4 w-full rounded-lg bg-teal-600 py-2.5 text-sm font-medium text-white hover:bg-teal-700 disabled:opacity-50"
+                  className="btn-primary mt-4 w-full"
                 >
                   Pay with card / UPI / wallet
                 </button>
@@ -361,7 +361,7 @@ export function UpiPaymentModal({
                 type="button"
                 onClick={() => void initPayment()}
                 disabled={loading}
-                className="flex-1 rounded-lg border border-teal-200 py-2 text-sm text-teal-800"
+                className="btn-secondary flex-1"
               >
                 Retry
               </button>
@@ -369,7 +369,7 @@ export function UpiPaymentModal({
             <button
               type="button"
               onClick={onClose}
-              className="rounded-lg border border-slate-200 px-4 py-2 text-sm text-slate-700 hover:bg-slate-50"
+              className="btn-secondary"
             >
               Cancel
             </button>

@@ -38,16 +38,24 @@ export default function HistoryPage() {
 
   return (
     <AppShell>
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-2xl font-bold text-slate-900">History</h1>
-        <div className="flex gap-2">
+      <div className="animate-fade-up mb-8 flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p className="section-label mb-1">Archive</p>
+          <h1 className="text-3xl font-semibold tracking-tight text-slate-900">
+            Library
+          </h1>
+          <p className="mt-1 text-sm text-slate-500">
+            {documents.length} document{documents.length !== 1 ? 's' : ''}
+          </p>
+        </div>
+        <div className="flex flex-wrap gap-2">
           <button
             type="button"
             onClick={() => {
               setSelectionMode(!selectionMode);
               setSelected(new Set());
             }}
-            className="rounded-lg border border-slate-200 px-3 py-1.5 text-sm hover:bg-slate-50"
+            className="btn-secondary !py-2 !text-xs"
           >
             {selectionMode ? 'Cancel' : 'Select'}
           </button>
@@ -56,14 +64,14 @@ export default function HistoryPage() {
               <button
                 type="button"
                 onClick={() => setLockOpen(true)}
-                className="rounded-lg bg-amber-600 px-3 py-1.5 text-sm text-white"
+                className="rounded-full bg-amber-500 px-4 py-2 text-xs font-semibold text-white"
               >
                 Lock ({selected.size})
               </button>
               <button
                 type="button"
                 onClick={() => setLockOpen(true)}
-                className="rounded-lg border border-slate-200 px-3 py-1.5 text-sm"
+                className="btn-secondary !py-2 !text-xs"
               >
                 Unlock
               </button>
@@ -74,35 +82,51 @@ export default function HistoryPage() {
 
       <input
         type="search"
-        placeholder="Search documents…"
+        placeholder="Search by title or tag…"
         value={filter}
         onChange={(e) => setFilter(e.target.value)}
-        className="mt-4 w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm"
+        className="input-field mb-6 max-w-md"
       />
 
-      <ul className="mt-4 divide-y divide-slate-100 rounded-xl border border-slate-200 bg-white">
+      <ul className="glass-card divide-y divide-slate-100 overflow-hidden">
         {filtered.map((doc) => (
-          <li key={doc.id} className="flex items-center gap-3 px-4 py-3">
+          <li
+            key={doc.id}
+            className="flex items-center gap-4 px-5 py-4 transition-colors hover:bg-slate-50/60"
+          >
             {selectionMode && (
               <input
                 type="checkbox"
                 checked={selected.has(doc.id)}
                 onChange={() => toggleSelect(doc.id)}
+                className="h-4 w-4 rounded border-slate-300 text-cyan-600"
               />
             )}
-            <Link href={`/document/${doc.id}`} className="min-w-0 flex-1 hover:opacity-80">
-              <p className="truncate font-medium">{doc.title}</p>
-              <p className="text-sm text-slate-500">{doc.date}</p>
+            <Link href={`/document/${doc.id}`} className="min-w-0 flex-1 group">
+              <p className="truncate font-medium tracking-tight text-slate-900 group-hover:text-cyan-700">
+                {doc.title}
+              </p>
+              <p className="mt-0.5 font-mono text-xs text-slate-400">{doc.date}</p>
             </Link>
+            {doc.isLocked && (
+              <span className="rounded-full bg-amber-50 px-2 py-0.5 text-xs text-amber-700">
+                Locked
+              </span>
+            )}
             <button
               type="button"
               onClick={() => setExportDoc(doc)}
-              className="shrink-0 rounded-lg bg-teal-600 px-3 py-1.5 text-xs font-medium text-white"
+              className="btn-primary !px-4 !py-2 !text-xs"
             >
               Export
             </button>
           </li>
         ))}
+        {filtered.length === 0 && (
+          <li className="px-5 py-16 text-center text-sm text-slate-500">
+            No documents found
+          </li>
+        )}
       </ul>
 
       <LockModal

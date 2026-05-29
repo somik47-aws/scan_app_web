@@ -92,38 +92,44 @@ function EditorContent() {
   }
 
   return (
-    <>
+    <div className="animate-fade-up">
       <Link
         href={docId ? `/document/${docId}` : '/scan-preview'}
-        className="text-sm text-teal-700 hover:underline"
+        className="inline-flex text-sm font-medium text-slate-500 hover:text-cyan-700"
       >
         ← Back
       </Link>
-      <h1 className="mt-2 text-2xl font-bold">Document editor</h1>
+
+      <div className="mt-4 flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p className="section-label mb-1">Editor</p>
+          <h1 className="text-3xl font-semibold tracking-tight text-slate-900">Refine document</h1>
+        </div>
+        <button
+          type="button"
+          onClick={() => void save()}
+          disabled={saving}
+          className="btn-primary"
+        >
+          {saving ? 'Saving…' : 'Save changes'}
+        </button>
+      </div>
 
       <input
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        className="mt-4 w-full rounded-xl border border-slate-200 px-4 py-2 font-medium"
+        className="input-field mt-6 text-lg font-medium"
+        placeholder="Document title"
       />
 
       <div
         ref={editorRef}
-        className="prose prose-sm mt-4 min-h-[320px] max-w-none rounded-xl border border-slate-200 bg-white p-4 focus:outline-none focus:ring-2 focus:ring-teal-500"
+        className="prose prose-sm mt-4 min-h-[360px] max-w-none rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm focus:outline-none focus:ring-2 focus:ring-cyan-500/30"
         contentEditable
         suppressContentEditableWarning
         onInput={(e) => setHtml(e.currentTarget.innerHTML)}
       />
-
-      <button
-        type="button"
-        onClick={() => void save()}
-        disabled={saving}
-        className="mt-4 rounded-xl bg-teal-600 px-6 py-2.5 text-sm font-semibold text-white disabled:opacity-50"
-      >
-        {saving ? 'Saving…' : 'Save changes'}
-      </button>
-    </>
+    </div>
   );
 }
 

@@ -36,33 +36,30 @@ export function LockModal({ open, title, onClose, onSubmit }: Props) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-      <div className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-xl">
-        <h2 className="text-lg font-semibold">{title}</h2>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 p-4 backdrop-blur-sm">
+      <div className="w-full max-w-sm animate-fade-up rounded-2xl border border-slate-200/80 bg-white p-6 shadow-2xl">
+        <p className="section-label mb-1">Security</p>
+        <h2 className="text-lg font-semibold tracking-tight">{title}</h2>
         <input
           type="password"
           inputMode="numeric"
           maxLength={6}
           value={pin}
           onChange={(e) => setPin(e.target.value.replace(/\D/g, ''))}
-          className="mt-4 w-full rounded-lg border border-slate-200 px-4 py-3 text-center text-2xl tracking-widest"
+          className="input-field mt-5 text-center text-2xl tracking-[0.4em]"
           placeholder="••••"
         />
         {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
-        <div className="mt-4 flex gap-2">
+        <div className="mt-5 flex gap-2">
           <button
             type="button"
             onClick={() => void handleSubmit()}
             disabled={loading}
-            className="flex-1 rounded-lg bg-teal-600 py-2 text-white hover:bg-teal-700 disabled:opacity-50"
+            className="btn-primary flex-1"
           >
             {loading ? '…' : 'Confirm'}
           </button>
-          <button
-            type="button"
-            onClick={onClose}
-            className="rounded-lg border border-slate-200 px-4 py-2 text-slate-700"
-          >
+          <button type="button" onClick={onClose} className="btn-secondary">
             Cancel
           </button>
         </div>
