@@ -1,0 +1,202 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+2 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+3 0 obj
+<< /Length 9871 >>
+stream
+BT /F2 18 Tf 32.0 810.0 Td (SOMIK GHOSH) Tj ET
+BT /F2 8.7 Tf 32.0 795.0 Td (Senior AI Engineer | GenAI Engineer | AI Architect | Data & AI Platform Architect) Tj ET
+BT /F1 7.4 Tf 32.0 784.0 Td (Bangalore, India | +91 9481657016 | somik47@gmail.com) Tj ET
+0.82 0.85 0.89 RG 0.5 w 32.0 776.0 m 563.0 776.0 l S
+BT /F2 8.7 Tf 32.0 764.0 Td (EXECUTIVE SUMMARY) Tj ET
+0.82 0.85 0.89 RG 0.5 w 32.0 760.0 m 563.0 760.0 l S
+BT /F1 7.4 Tf 32.0 752.0 Td (Senior Data & AI Platform Engineer with 15 years of experience designing enterprise-scale data, analytics, and AI-enabled platforms across banking,) Tj ET
+BT /F1 7.4 Tf 32.0 743.0 Td (healthcare, retail, insurance, and digital media. Currently Engineering Specialist / Staff Engineer at Commonwealth Bank of Australia, leading AI-) Tj ET
+BT /F1 7.4 Tf 32.0 734.0 Td (ready banking data platform initiatives and implementing RAG-based knowledge retrieval patterns for regulated financial services use cases.) Tj ET
+BT /F1 7.4 Tf 32.0 722.0 Td (Strengths include cloud data engineering, platform modernization, LLM-ready architecture, intelligent workflows, data governance, Responsible AI) Tj ET
+BT /F1 7.4 Tf 32.0 713.0 Td (controls, stakeholder management, and scalable analytics platforms. Led teams of 15+ engineers, improved processing throughput by 70%, increased ETL) Tj ET
+BT /F1 7.4 Tf 32.0 704.0 Td (efficiency by 40%, reduced deployment timelines from weeks to hours, supported platforms processing 10TB+ daily data and 500M+ monthly records, and) Tj ET
+BT /F1 7.4 Tf 32.0 695.0 Td (contributed to $2M+ annual infrastructure savings.) Tj ET
+BT /F2 8.7 Tf 32.0 681.0 Td (CORE COMPETENCIES) Tj ET
+0.82 0.85 0.89 RG 0.5 w 32.0 677.0 m 563.0 677.0 l S
+BT /F2 7.4 Tf 32.0 669.0 Td (AI, GENAI & RAG) Tj ET
+BT /F2 7.4 Tf 306.5 669.0 Td (AGENTIC AI & AI-ASSISTED ENGINEERING) Tj ET
+BT /F1 6.8 Tf 32.0 661.0 Td (RAG implementation; LLM integration patterns; OpenAI; Azure OpenAI; AWS) Tj ET
+BT /F1 6.8 Tf 32.0 653.0 Td (Bedrock; prompt engineering; chatbots; AI applications; intelligent workflows;) Tj ET
+BT /F1 6.8 Tf 32.0 645.0 Td (AI automation; enterprise knowledge retrieval; semantic search; hybrid search;) Tj ET
+BT /F1 6.8 Tf 32.0 637.0 Td (citation-aware responses; grounded outputs; vector database integration.) Tj ET
+BT /F1 6.8 Tf 306.5 661.0 Td (LangChain; LangGraph; LlamaIndex; MCP / Model Context Protocol; tool calling;) Tj ET
+BT /F1 6.8 Tf 306.5 653.0 Td (function calling; agentic workflow design; human-in-the-loop workflows;) Tj ET
+BT /F1 6.8 Tf 306.5 645.0 Td (Cursor; Claude; AI-assisted coding; rapid prototyping; productivity-focused) Tj ET
+BT /F1 6.8 Tf 306.5 637.0 Td (vibe-coding workflows.) Tj ET
+BT /F2 7.4 Tf 32.0 624.0 Td (DATA ENGINEERING) Tj ET
+BT /F2 7.4 Tf 306.5 624.0 Td (CLOUD, PLATFORM & GOVERNANCE) Tj ET
+BT /F1 6.8 Tf 32.0 616.0 Td (Enterprise data platforms; data lakehouse architecture; ETL/ELT modernization;) Tj ET
+BT /F1 6.8 Tf 32.0 608.0 Td (Spark/PySpark; Kafka; Airflow; Snowflake; Redshift; Databricks; Informatica;) Tj ET
+BT /F1 6.8 Tf 32.0 600.0 Td (Teradata; SQL; Python; feature engineering; ML-ready data pipelines.) Tj ET
+BT /F1 6.8 Tf 306.5 616.0 Td (AWS data platforms; cloud migration; Terraform; CI/CD; GitOps; Docker;) Tj ET
+BT /F1 6.8 Tf 306.5 608.0 Td (Kubernetes; data quality; data lineage; metadata management; PII controls;) Tj ET
+BT /F1 6.8 Tf 306.5 600.0 Td (GDPR; HIPAA; SOX; Responsible AI foundations; regulated architecture.) Tj ET
+BT /F2 8.7 Tf 32.0 585.0 Td (PROFESSIONAL EXPERIENCE) Tj ET
+0.82 0.85 0.89 RG 0.5 w 32.0 581.0 m 563.0 581.0 l S
+BT /F2 8.1 Tf 32.0 573.0 Td (Engineering Specialist / Staff Engineer) Tj ET
+BT /F2 8.1 Tf 245.0 573.0 Td (Commonwealth Bank of Australia) Tj ET
+BT /F1 7.0 Tf 383.0 573.0 Td (Apr 2025 - Present) Tj ET
+BT /F1 7.2 Tf 32.0 563.0 Td (-) Tj ET
+BT /F1 7.2 Tf 41.0 563.0 Td (Lead architecture and delivery of AI-ready banking data platforms supporting customer insights, risk analytics, forecasting, regulatory reporting, and) Tj ET
+BT /F1 7.2 Tf 41.0 554.2 Td (intelligent decisioning across financial services operations.) Tj ET
+BT /F1 7.2 Tf 32.0 544.4 Td (-) Tj ET
+BT /F1 7.2 Tf 41.0 544.4 Td (Implement RAG-based knowledge retrieval patterns for banking data and analytics use cases, covering governed ingestion, context preparation, retrieval) Tj ET
+BT /F1 7.2 Tf 41.0 535.6 Td (workflows, metadata controls, and trusted response generation for internal decision-support scenarios.) Tj ET
+BT /F1 7.2 Tf 32.0 525.8 Td (-) Tj ET
+BT /F1 7.2 Tf 41.0 525.8 Td (Design data foundations for LLM and GenAI adoption by improving data quality, lineage, access control, reusable data products, automated quality) Tj ET
+BT /F1 7.2 Tf 41.0 517.0 Td (gates, and compliant consumption patterns.) Tj ET
+BT /F1 7.2 Tf 32.0 507.2 Td (-) Tj ET
+BT /F1 7.2 Tf 41.0 507.2 Td (Partner with banking, analytics, risk, compliance, and engineering stakeholders to convert requirements into scalable data and AI platform roadmaps.) Tj ET
+BT /F1 7.2 Tf 32.0 497.4 Td (-) Tj ET
+BT /F1 7.2 Tf 41.0 497.4 Td (Use Cursor and Claude for AI-assisted engineering workflows, including rapid prototyping, code generation, SQL/Python optimization, architecture) Tj ET
+BT /F1 7.2 Tf 41.0 488.6 Td (exploration, debugging, documentation, and productivity-focused vibe coding.) Tj ET
+BT /F2 8.1 Tf 32.0 478.8 Td (Senior Manager - Data Engineering) Tj ET
+BT /F2 8.1 Tf 245.0 478.8 Td (Tredence Inc.) Tj ET
+BT /F1 7.0 Tf 383.0 478.8 Td (Nov 2024 - Mar 2025) Tj ET
+BT /F1 7.2 Tf 32.0 468.8 Td (-) Tj ET
+BT /F1 7.2 Tf 41.0 468.8 Td (Led production-grade big data and AI-enablement pipelines on AWS, increasing processing throughput by 70% through Spark optimization, workload tuning,) Tj ET
+BT /F1 7.2 Tf 41.0 460.0 Td (and scalable platform design.) Tj ET
+BT /F1 7.2 Tf 32.0 450.2 Td (-) Tj ET
+BT /F1 7.2 Tf 41.0 450.2 Td (Migrated legacy ETL systems to Databricks lakehouse architecture, improving pipeline efficiency by 40% and enabling unified batch, streaming,) Tj ET
+BT /F1 7.2 Tf 41.0 441.4 Td (analytics, and ML feature workloads.) Tj ET
+BT /F1 7.2 Tf 32.0 431.6 Td (-) Tj ET
+BT /F1 7.2 Tf 41.0 431.6 Td (Managed 15 data engineers delivering enterprise BI platforms, ML feature pipelines, operational dashboards, and AI-ready datasets for Fortune 500) Tj ET
+BT /F1 7.2 Tf 41.0 422.8 Td (clients.) Tj ET
+BT /F1 7.2 Tf 32.0 413.0 Td (-) Tj ET
+BT /F1 7.2 Tf 41.0 413.0 Td (Implemented GitOps CI/CD, Infrastructure-as-Code, automated testing, and release controls, reducing deployment lead time from weeks to hours with) Tj ET
+BT /F1 7.2 Tf 41.0 404.2 Td (99.9% release success.) Tj ET
+BT /F1 7.2 Tf 32.0 394.4 Td (-) Tj ET
+BT /F1 7.2 Tf 41.0 394.4 Td (Optimized cloud resource provisioning and processing architecture, contributing to $2M+ annual infrastructure savings.) Tj ET
+BT /F2 8.1 Tf 32.0 384.6 Td (Technical Architect Manager) Tj ET
+BT /F2 8.1 Tf 245.0 384.6 Td (Impetus Technologies) Tj ET
+BT /F1 7.0 Tf 383.0 384.6 Td (Feb 2023 - Oct 2024) Tj ET
+BT /F1 7.2 Tf 32.0 374.6 Td (-) Tj ET
+BT /F1 7.2 Tf 41.0 374.6 Td (Architected mission-critical enterprise data platforms processing petabyte-scale workloads, enabling advanced analytics, forecasting, AI/ML) Tj ET
+BT /F1 7.2 Tf 41.0 365.8 Td (integration, and executive decision intelligence.) Tj ET
+BT /F1 7.2 Tf 32.0 356.0 Td (-) Tj ET
+BT /F1 7.2 Tf 41.0 356.0 Td (Designed AWS Well-Architected data and AI platform layers across ingestion, transformation, serving, analytics, governance, and ML integration using) Tj ET
+BT /F1 7.2 Tf 41.0 347.2 Td (Kinesis/MSK, Glue/EMR, Athena, and QuickSight.) Tj ET
+BT /F1 7.2 Tf 32.0 337.4 Td (-) Tj ET
+BT /F1 7.2 Tf 41.0 337.4 Td (Established governance standards for metadata, lineage, PII controls, cataloging, GDPR/SOX compliance, and trusted data access required for) Tj ET
+BT /F1 7.2 Tf 41.0 328.6 Td (Responsible AI adoption.) Tj ET
+BT /F1 7.2 Tf 32.0 318.8 Td (-) Tj ET
+BT /F1 7.2 Tf 41.0 318.8 Td (Engineered federated data integration across 50+ sources including APIs, SaaS platforms, and legacy databases, improving trusted enterprise data) Tj ET
+BT /F1 7.2 Tf 41.0 310.0 Td (availability for analytics and automation.) Tj ET
+BT /F1 7.2 Tf 32.0 300.2 Td (-) Tj ET
+BT /F1 7.2 Tf 41.0 300.2 Td (Led architecture reviews, stakeholder workshops, roadmap planning, and multi-disciplinary engineering delivery aligned to business KPIs and platform) Tj ET
+BT /F1 7.2 Tf 41.0 291.4 Td (modernization goals.) Tj ET
+BT /F2 8.1 Tf 32.0 281.6 Td (Technical Architect / Associate Technical Architect) Tj ET
+BT /F2 8.1 Tf 245.0 281.6 Td (Carelon Global Solutions / Elevance Health) Tj ET
+BT /F1 7.0 Tf 383.0 281.6 Td (Apr 2018 - Jan 2023) Tj ET
+BT /F1 7.2 Tf 32.0 271.6 Td (-) Tj ET
+BT /F1 7.2 Tf 41.0 271.6 Td (Designed HIPAA-compliant healthcare data fabrics integrating claims, clinical, pharmacy, and socio-economic datasets for population health analytics,) Tj ET
+BT /F1 7.2 Tf 41.0 262.8 Td (risk stratification, provider analytics, and AI/ML-enabled decisioning.) Tj ET
+BT /F1 7.2 Tf 32.0 253.0 Td (-) Tj ET
+BT /F1 7.2 Tf 41.0 253.0 Td (Led IngenioRx PBM analytics architecture supporting adjudication logic, formulary compliance, rebate modeling, provider network optimization,) Tj ET
+BT /F1 7.2 Tf 41.0 244.2 Td (forecasting, and competitive intelligence workflows.) Tj ET
+BT /F1 7.2 Tf 32.0 234.4 Td (-) Tj ET
+BT /F1 7.2 Tf 41.0 234.4 Td (Delivered ML-enabled personalization and lifecycle analytics capabilities that improved member retention KPIs by 25%.) Tj ET
+BT /F1 7.2 Tf 32.0 224.6 Td (-) Tj ET
+BT /F1 7.2 Tf 41.0 224.6 Td (Established reusable healthcare data product patterns using microservices, Kafka event streaming, and domain-driven design, reducing time-to-market) Tj ET
+BT /F1 7.2 Tf 41.0 215.8 Td (for new analytics and AI use cases by 60%.) Tj ET
+BT /F1 6.5 Tf 225.5 16 Td (Somik Ghosh | AI-Focused Resume | Page 1 of 2) Tj ET
+endstream
+endobj
+4 0 obj
+<< /Length 4870 >>
+stream
+BT /F2 18 Tf 32.0 810.0 Td (SOMIK GHOSH) Tj ET
+BT /F2 8.7 Tf 32.0 795.0 Td (Senior AI Engineer | GenAI Engineer | AI Architect | Data & AI Platform Architect) Tj ET
+BT /F1 7.4 Tf 32.0 784.0 Td (Bangalore, India | +91 9481657016 | somik47@gmail.com) Tj ET
+0.82 0.85 0.89 RG 0.5 w 32.0 776.0 m 563.0 776.0 l S
+BT /F2 8.7 Tf 32.0 764.0 Td (PROFESSIONAL EXPERIENCE CONTINUED) Tj ET
+0.82 0.85 0.89 RG 0.5 w 32.0 760.0 m 563.0 760.0 l S
+BT /F2 8.1 Tf 32.0 752.0 Td (Senior Consultant - Data Engineering) Tj ET
+BT /F2 8.1 Tf 245.0 752.0 Td (Deloitte Consulting) Tj ET
+BT /F1 7.0 Tf 383.0 752.0 Td (Oct 2015 - Apr 2018) Tj ET
+BT /F1 7.2 Tf 32.0 742.0 Td (-) Tj ET
+BT /F1 7.2 Tf 41.0 742.0 Td (Led ETL and data architecture for Fortune 100 transformation programs, delivering 100+ Informatica workflows processing 10TB+ daily volumes with) Tj ET
+BT /F1 7.2 Tf 41.0 733.2 Td (99.99% data accuracy.) Tj ET
+BT /F1 7.2 Tf 32.0 723.4 Td (-) Tj ET
+BT /F1 7.2 Tf 41.0 723.4 Td (Conducted executive workshops and converted ambiguous business goals into technical blueprints, data models, test strategies, and production-grade) Tj ET
+BT /F1 7.2 Tf 41.0 714.6 Td (analytical solutions.) Tj ET
+BT /F1 7.2 Tf 32.0 704.8 Td (-) Tj ET
+BT /F1 7.2 Tf 41.0 704.8 Td (Mentored 12 junior consultants across data engineering, delivery practices, stakeholder communication, and consulting methods, contributing to 90%) Tj ET
+BT /F1 7.2 Tf 41.0 696.0 Td (internal promotion within 18 months.) Tj ET
+BT /F2 8.1 Tf 32.0 686.2 Td (Software Associate) Tj ET
+BT /F2 8.1 Tf 245.0 686.2 Td (Cognizant Technology Solutions) Tj ET
+BT /F1 7.0 Tf 383.0 686.2 Td (Jun 2014 - Sep 2015) Tj ET
+BT /F1 7.2 Tf 32.0 676.2 Td (-) Tj ET
+BT /F1 7.2 Tf 41.0 676.2 Td (Developed production Informatica ETL pipelines for telecom billing data warehouses, processing 500M+ monthly records using partitioning, incremental) Tj ET
+BT /F1 7.2 Tf 41.0 667.4 Td (loads, and error recovery patterns.) Tj ET
+BT /F2 8.1 Tf 32.0 657.6 Td (Technical Analyst) Tj ET
+BT /F2 8.1 Tf 245.0 657.6 Td (IBT Media) Tj ET
+BT /F1 7.0 Tf 383.0 657.6 Td (Aug 2011 - May 2014) Tj ET
+BT /F1 7.2 Tf 32.0 647.6 Td (-) Tj ET
+BT /F1 7.2 Tf 41.0 647.6 Td (Designed star-schema data marts and analytics pipelines for digital media platforms tracking 1B+ monthly impressions across 50+ KPIs.) Tj ET
+BT /F2 8.7 Tf 32.0 635.8 Td (EDUCATION) Tj ET
+0.82 0.85 0.89 RG 0.5 w 32.0 631.8 m 563.0 631.8 l S
+BT /F1 7.5 Tf 32.0 623.8 Td (Bachelor of Computer Applications, Techno India University, West Bengal, India | 2011) Tj ET
+BT /F2 8.7 Tf 32.0 609.8 Td (CERTIFICATIONS) Tj ET
+0.82 0.85 0.89 RG 0.5 w 32.0 605.8 m 563.0 605.8 l S
+BT /F1 7.2 Tf 32.0 597.8 Td (-) Tj ET
+BT /F1 7.2 Tf 41.0 597.8 Td (AWS Certified Data Analytics - Specialty | Amazon Web Services Training and Certification | Credential visible via Credly.) Tj ET
+BT /F1 7.2 Tf 32.0 588.0 Td (-) Tj ET
+BT /F1 7.2 Tf 41.0 588.0 Td (Databricks Academy Accreditation - Generative AI Fundamentals | Databricks Badges / credentials.databricks.com.) Tj ET
+BT /F1 7.2 Tf 32.0 578.2 Td (-) Tj ET
+BT /F1 7.2 Tf 41.0 578.2 Td (HackerRank Silver Badge - Python | HackerRank.) Tj ET
+BT /F2 8.7 Tf 32.0 566.4 Td (TOOLS & TECHNOLOGIES) Tj ET
+0.82 0.85 0.89 RG 0.5 w 32.0 562.4 m 563.0 562.4 l S
+BT /F1 7.0 Tf 32.0 554.4 Td (AI / GenAI: RAG, LLM Integration, Prompt Engineering, AI Applications, Chatbots, Intelligent Workflows, AI Automation, Responsible AI, AI Governance, OpenAI,) Tj ET
+BT /F1 7.0 Tf 32.0 546.0 Td (Azure OpenAI, AWS Bedrock, Anthropic Claude.) Tj ET
+BT /F1 7.0 Tf 32.0 534.6 Td (Agentic AI: LangChain, LangGraph, LlamaIndex, MCP, Tool Calling, Function Calling, Agentic Workflows, Human-in-the-Loop, AI Workflow Orchestration.) Tj ET
+BT /F1 7.0 Tf 32.0 523.2 Td (Vector / Search: Vector Databases, Pinecone, Weaviate, Qdrant, ChromaDB, pgvector, Azure AI Search, OpenSearch Vector Search, FAISS, Semantic Search, Hybrid) Tj ET
+BT /F1 7.0 Tf 32.0 514.8 Td (Search.) Tj ET
+BT /F1 7.0 Tf 32.0 503.4 Td (AI-Assisted Engineering: Cursor, Claude, AI-assisted coding, vibe coding, rapid prototyping, code generation, architecture exploration, debugging,) Tj ET
+BT /F1 7.0 Tf 32.0 495.0 Td (documentation automation.) Tj ET
+BT /F1 7.0 Tf 32.0 483.6 Td (Cloud/Data/DevOps: AWS, Databricks, Snowflake, Redshift, EMR, Glue, Kinesis, MSK, Athena, DynamoDB, Spark, PySpark, Kafka, Airflow, Informatica, Teradata,) Tj ET
+BT /F1 7.0 Tf 32.0 475.2 Td (Python, SQL, PL/SQL, Docker, Kubernetes, Jenkins, GitLab CI/CD, Terraform, GitOps.) Tj ET
+BT /F1 7.0 Tf 32.0 463.8 Td (Governance/Leadership: GDPR, HIPAA, SOX, PII Controls, Metadata Management, Data Lineage, Atlas, Collibra, Architecture Review Boards, Technical Roadmaps,) Tj ET
+BT /F1 7.0 Tf 32.0 455.4 Td (Stakeholder Management, Team Leadership, Agile, SAFe, Mentoring.) Tj ET
+BT /F1 6.5 Tf 225.5 16 Td (Somik Ghosh | AI-Focused Resume | Page 2 of 2) Tj ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 7 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 3 0 R >>
+endobj
+6 0 obj
+<< /Type /Page /Parent 7 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 4 0 R >>
+endobj
+7 0 obj
+<< /Type /Pages /Kids [5 0 R 6 0 R] /Count 2 >>
+endobj
+8 0 obj
+<< /Type /Catalog /Pages 7 0 R >>
+endobj
+xref
+0 9
+0000000000 65535 f 
+0000000015 00000 n 
+0000000085 00000 n 
+0000000160 00000 n 
+0000010083 00000 n 
+0000015005 00000 n 
+0000015141 00000 n 
+0000015277 00000 n 
+0000015340 00000 n 
+trailer
+<< /Size 9 /Root 8 0 R >>
+startxref
+15389
+%%EOF
